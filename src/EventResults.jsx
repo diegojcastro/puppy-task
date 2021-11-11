@@ -11,6 +11,7 @@ export default function EventResults(props) {
       program={result.program}
       level={result.level}
       qualified={result.qualified}
+      ribbon={result.ribbon}
 
     />
   });

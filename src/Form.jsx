@@ -57,10 +57,34 @@ export default function Form(props) {
     setFormVals((prev) => ({...prev, qualified}));
   }
 
+  // Checks if dog gets the CW-SP ribbon from having previously
+  // qualified once already.
+  // TODO: Check what happens if we add an extra Q when dog already has ribbon
+  const checkForRibbon = (entry) => {
+    let count = 0;
+    for (const result of results) {
+      if (
+        result.dog === entry.dog &&
+        result.org === entry.org &&
+        result.program === entry.program &&
+        result.level === entry.level &&
+        result.qualified
+      ) count++;
+    }
+    if (count >= 1) return true;
+
+    return false;
+  }
+
   const handleSubmit = () => {
     console.log("Appending result:");
     console.log(formVals);
-    setResults(prev => ([...prev, formVals]))
+    if (formVals.qualified && checkForRibbon(formVals)) {
+      const awardRibbon = {...formVals, qualified: false, ribbon: true};
+      console.log('This is the awardRibbon entry for the result list:');
+      console.log(awardRibbon);
+      setResults(prev => ([...prev, formVals, awardRibbon]));
+    } else setResults(prev => ([...prev, formVals]));
   }
 
 
