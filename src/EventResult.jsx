@@ -1,5 +1,7 @@
 import { React } from 'react';
 
+import './EventResult.css';
+
 export default function EventResult(props) {
 
   return (

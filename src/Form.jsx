@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
 
 export default function Form(props) {
   const [formVals, setFormVals] = useState({});
@@ -54,7 +54,6 @@ export default function Form(props) {
   }
   const changeQualified = (e) => {
     const qualified = e.target.checked;
-    console.log(`Qualified is now: ${qualified}`)
     setFormVals((prev) => ({...prev, qualified}));
   }
 
