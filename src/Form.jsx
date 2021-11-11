@@ -2,7 +2,8 @@ import { React, useState, useEffect } from 'react';
 
 export default function Form(props) {
   const [formVals, setFormVals] = useState({});
-
+  const results = props.results;
+  const setResults = props.setResults;
   const dogs = props.dogList || ['Hershey']
 
   const changeDog = (e) => {
@@ -52,11 +53,16 @@ export default function Form(props) {
     setFormVals((prev) => ({...prev, improve}));
   }
   const changeQualified = (e) => {
-    const qualified = e.target.value;
+    const qualified = e.target.checked;
+    console.log(`Qualified is now: ${qualified}`)
     setFormVals((prev) => ({...prev, qualified}));
   }
 
-
+  const handleSubmit = () => {
+    console.log("Appending result:");
+    console.log(formVals);
+    setResults(prev => ([...prev, formVals]))
+  }
 
 
   return(
@@ -123,7 +129,7 @@ export default function Form(props) {
         </label>
 
         <br />
-        <input type='submit' value='Submit' onClick={() => console.log(formVals)}/>
+        <input type='submit' value='Submit' onClick={handleSubmit}/>
 
       </div>
       }

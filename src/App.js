@@ -1,13 +1,23 @@
+import { React, useState } from 'react';
+import Form from './Form';
+import EventResults from './EventResults';
 
 import './App.css';
-import Form from './Form';
 
 function App() {
+  const [results, setResults] = useState([]);
+
+  
+
+
   return (
     <div className="app">
-      Pawcker Task
+      <h1>Pawcker Task</h1>
+      <h2>Placeholder results</h2>
+      <EventResults results={results} />
+
       <div className="app__form">
-        <Form />
+        <Form results={results} setResults={setResults}/>
       </div>
     </div>
   );
