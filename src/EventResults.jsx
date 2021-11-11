@@ -2,6 +2,7 @@ import { React } from 'react'
 import EventResult from './EventResult'
 
 export default function EventResults(props) {
+
   const parsedResults = props.results.map( result => {
     return <EventResult
       dog={result.dog}
@@ -11,11 +12,11 @@ export default function EventResults(props) {
       qualified={result.qualified}
 
     />
-  })
+  });
 
   return(
     <ul>
-      {parsedResults}
+      {parsedResults.reverse()}
     </ul>
   )
 };
