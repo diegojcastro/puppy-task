@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import { Route, Switch } from "react-router-dom";
 
 
 export default function Form(props) {
@@ -91,7 +90,7 @@ export default function Form(props) {
 
 
   return(
-    <form className='dog-form' onSubmit={e => e.preventDefault()}>
+    <form className='dog-form app__form' onSubmit={e => e.preventDefault()}>
       <label>
         Dog:
         <select name='Dog' value={formVals.dog} onChange={changeDog}>

@@ -1,4 +1,5 @@
 import { React } from 'react'
+import { Link } from 'react-router-dom';
 import EventResult from './EventResult'
 
 export default function EventResults(props) {
@@ -17,8 +18,11 @@ export default function EventResults(props) {
   });
 
   return(
-    <ul>
-      {parsedResults.reverse()}
-    </ul>
+    <div>
+      <ul>
+        {parsedResults.reverse()}
+      </ul>
+      <Link to={"/events/new"}>Add Event</Link>
+    </div>
   )
 };
