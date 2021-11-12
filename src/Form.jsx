@@ -1,8 +1,10 @@
 import { React, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Form(props) {
   const [formVals, setFormVals] = useState({});
+  const navigate = useNavigate();
   const results = props.results;
   const setResults = props.setResults;
   const dogs = props.dogList || ['Hershey']
@@ -86,6 +88,8 @@ export default function Form(props) {
       console.log(awardRibbon);
       setResults(prev => ([...prev, formVals, awardRibbon]));
     } else setResults(prev => ([...prev, formVals]));
+
+    navigate("/");
   }
 
 
