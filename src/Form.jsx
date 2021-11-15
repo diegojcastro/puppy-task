@@ -96,33 +96,29 @@ export default function Form(props) {
   return(
     <form className='dog-form app__form' onSubmit={e => e.preventDefault()}>
       <label>
-        Dog:
-        <select name='Dog' value={formVals.dog} onChange={changeDog}>
-          <option selected disabled value>Dog</option>
+        <select name='Dog' placeholder='Dog' value={formVals.dog} onChange={changeDog}>
+          <option defaultValue hidden value=''>Dog</option>
           <option value='Hershey'>Hershey</option>
         </select>
       </label>
 
       {formVals.dog && <label>
-          Organization:
           <select name='Organization' value={formVals.org} onChange={changeOrg}>
-            <option selected disabled value>Organization</option>
+            <option defaultValue hidden value>Organization</option>
             <option value='CWAGS'>CWAGS</option>
           </select>
       </label>}
       
       {formVals.org && <label>
-          Program:
           <select name='Program' value={formVals.program} onChange={changeProgram}>
-            <option selected disabled value>Program</option>
+            <option defaultValue hidden value>Program</option>
             <option value='Scent'>Scent</option>
           </select>
       </label>}
       
       {formVals.program && <label>
-          Level:
           <select name='Level' value={formVals.level} onChange={changeLevel}>
-            <option selected disabled value>Level</option>
+            <option defaultValue hidden value>Level</option>
             <option value='Level 1'>Level 1</option>
           </select>
       </label>}
@@ -130,19 +126,15 @@ export default function Form(props) {
       {formVals.level && 
       <div className='dog-form'>
         <label>
-          Judge:
           <input type='text' placeholder='Judge' value={formVals.judge} onChange={changeJudge} />
         </label>
         <label>
-          Date:
           <input type='date' placeholder='Date' value={formVals.date} onChange={changeDate} />
         </label>
         <label>
-          Time:
           <input type='number' placeholder='Time' value={formVals.time} onChange={changeTime} />
         </label>
         <label>
-          Scents:
           <input type='text' placeholder='Scents' value={formVals.scents} onChange={changeScents} />
         </label>
         <label>
