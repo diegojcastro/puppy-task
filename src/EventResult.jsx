@@ -1,5 +1,7 @@
 import { React } from 'react';
 
+import './EventResult.css';
+
 export default function EventResult(props) {
 
   return (
@@ -8,17 +10,12 @@ export default function EventResult(props) {
         {props.dog}
       </div>
       <span>
-        {props.org} | 
-      </span>
-      <span>
-        {props.program}
-      </span>
-      <span>
-        {props.level}
+        {props.org} | {props.program} {props.level}
       </span>
       <br />
       <div>
         {props.qualified && <span>[Ribbon with Q here]</span>}
+        {props.ribbon && <span>[Ribbon with CW-SP here]</span>}
       </div>
     </div>
   )

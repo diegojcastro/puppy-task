@@ -1,7 +1,10 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Form(props) {
   const [formVals, setFormVals] = useState({});
+  const navigate = useNavigate();
   const results = props.results;
   const setResults = props.setResults;
   const dogs = props.dogList || ['Hershey']
@@ -54,47 +57,69 @@ export default function Form(props) {
   }
   const changeQualified = (e) => {
     const qualified = e.target.checked;
-    console.log(`Qualified is now: ${qualified}`)
     setFormVals((prev) => ({...prev, qualified}));
   }
 
-  const handleSubmit = () => {
+  // Checks if dog gets the CW-SP ribbon from having previously
+  // qualified once already.
+  // TODO: Check what happens if we add an extra Q when dog already has ribbon
+  const checkForRibbon = (entry) => {
+    let count = 0;
+    for (const result of results) {
+      if (
+        result.dog === entry.dog &&
+        result.org === entry.org &&
+        result.program === entry.program &&
+        result.level === entry.level &&
+        result.qualified
+      ) count++;
+    }
+    if (count >= 1) return true;
+
+    return false;
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Appending result:");
     console.log(formVals);
-    setResults(prev => ([...prev, formVals]))
+    if (formVals.qualified && checkForRibbon(formVals)) {
+      const awardRibbon = {...formVals, qualified: false, ribbon: true};
+      console.log('This is the awardRibbon entry for the result list:');
+      console.log(awardRibbon);
+      setResults(prev => ([...prev, formVals, awardRibbon]));
+    } else setResults(prev => ([...prev, formVals]));
+
+    navigate("/");
   }
 
 
   return(
-    <form className='dog-form' onSubmit={e => e.preventDefault()}>
+    <form className='dog-form app__form'>
       <label>
-        Dog:
-        <select name='Dog' value={formVals.dog} onChange={changeDog}>
-          <option selected disabled value>Dog</option>
+        <select name='Dog' placeholder='Dog' value={formVals.dog} onChange={changeDog}>
+          <option defaultValue hidden value=''>Dog</option>
           <option value='Hershey'>Hershey</option>
         </select>
       </label>
 
       {formVals.dog && <label>
-          Organization:
           <select name='Organization' value={formVals.org} onChange={changeOrg}>
-            <option selected disabled value>Organization</option>
+            <option defaultValue hidden value>Organization</option>
             <option value='CWAGS'>CWAGS</option>
           </select>
       </label>}
       
       {formVals.org && <label>
-          Program:
           <select name='Program' value={formVals.program} onChange={changeProgram}>
-            <option selected disabled value>Program</option>
+            <option defaultValue hidden value>Program</option>
             <option value='Scent'>Scent</option>
           </select>
       </label>}
       
       {formVals.program && <label>
-          Level:
           <select name='Level' value={formVals.level} onChange={changeLevel}>
-            <option selected disabled value>Level</option>
+            <option defaultValue hidden value>Level</option>
             <option value='Level 1'>Level 1</option>
           </select>
       </label>}
@@ -102,19 +127,15 @@ export default function Form(props) {
       {formVals.level && 
       <div className='dog-form'>
         <label>
-          Judge:
           <input type='text' placeholder='Judge' value={formVals.judge} onChange={changeJudge} />
         </label>
         <label>
-          Date:
           <input type='date' placeholder='Date' value={formVals.date} onChange={changeDate} />
         </label>
         <label>
-          Time:
           <input type='number' placeholder='Time' value={formVals.time} onChange={changeTime} />
         </label>
         <label>
-          Scents:
           <input type='text' placeholder='Scents' value={formVals.scents} onChange={changeScents} />
         </label>
         <label>
