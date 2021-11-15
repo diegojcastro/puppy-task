@@ -79,7 +79,8 @@ export default function Form(props) {
     return false;
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log("Appending result:");
     console.log(formVals);
     if (formVals.qualified && checkForRibbon(formVals)) {
@@ -94,7 +95,7 @@ export default function Form(props) {
 
 
   return(
-    <form className='dog-form app__form' onSubmit={e => e.preventDefault()}>
+    <form className='dog-form app__form'>
       <label>
         <select name='Dog' placeholder='Dog' value={formVals.dog} onChange={changeDog}>
           <option defaultValue hidden value=''>Dog</option>
