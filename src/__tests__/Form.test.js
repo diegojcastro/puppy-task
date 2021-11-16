@@ -17,13 +17,16 @@ describe("Form", () => {
   });
 
   it("should sequentially display new form fields", () => {
-    const { getByPlaceholderText } = render(
+    const { getByPlaceholderText, getByText } = render(
       <MemoryRouter>
         <Form />
       </MemoryRouter>
     );
     const firstField = getByPlaceholderText("Dog");
     expect(firstField).toHaveValue('');
+
+    const hersheySelection = getByText("Hershey");
+    expect(hersheySelection).toHaveValue('Hershey');
 
   })
 
