@@ -16,6 +16,15 @@ describe("Form", () => {
     );
   });
 
-  
+  it("should sequentially display new form fields", () => {
+    const { getByPlaceholderText } = render(
+      <MemoryRouter>
+        <Form />
+      </MemoryRouter>
+    );
+    const firstField = getByPlaceholderText("Dog");
+    expect(firstField).toHaveValue('');
+
+  })
 
 });
