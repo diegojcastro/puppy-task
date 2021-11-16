@@ -17,12 +17,12 @@ describe("Form", () => {
   });
 
   it("should sequentially display new form fields", () => {
-    const { getByPlaceholderText, getByText, queryByText } = render(
+    const { getByText, queryByText, getByDisplayValue } = render(
       <MemoryRouter>
         <Form />
       </MemoryRouter>
     );
-    const firstField = getByPlaceholderText("Dog");
+    const firstField = getByDisplayValue("Dog");
     expect(firstField).toHaveValue('');
 
     expect(getByText("Hershey")).toHaveValue('Hershey');
@@ -34,6 +34,14 @@ describe("Form", () => {
     expect(firstField).toHaveValue('Hershey');
 
     expect(getByText("CWAGS")).toBeInTheDocument();
+    expect(queryByText(/Scent/i)).toBeNull();
+
+    const secondField = getByDisplayValue("Organization");
+    fireEvent.change(secondField, {target: {value: 'CWAGS'}});
+    expect(secondField).toHaveValue('CWAGS');
+
+    expect(getByText('Scent')).toBeInTheDocument();
+
     
   })
 
